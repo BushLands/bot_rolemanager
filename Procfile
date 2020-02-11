@@ -1,1 +1,1 @@
-web: python bot_rolemanager.py
+worker: python bot_rolemanager.py
