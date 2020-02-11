@@ -26,21 +26,22 @@ class bot_rolemanager(discord.Client):
                 print(repr(e))
  
     async def on_raw_reaction_remove(self, payload):
-        channel = self.get_channel(payload.channel_id)
-        message = await channel.fetch_message(payload.message_id)
-        member = utils.get(message.guild.members, id=payload.user_id)
+        if payload.message_id == config.POST_ID:
+            channel = self.get_channel(payload.channel_id)
+            message = await channel.fetch_message(payload.message_id)
+            member = utils.get(message.guild.members, id=payload.user_id)
 
-        try:
-            emoji = str(payload.emoji) # user's emoji object
-            role = utils.get(message.guild.roles, id=config.ROLES[emoji]) # role's object
- 
-            await member.remove_roles(role) # removin' role
-            print('[SUCCESS] Role {1.name} has been remove for user {0.display_name}'.format(member, role))
- 
-        except KeyError as e:
-            print('[ERROR] KeyError, no role found for ' + emoji)
-        except Exception as e:
-            print(repr(e))
+            try:
+                emoji = str(payload.emoji) # user's emoji object
+                role = utils.get(message.guild.roles, id=config.ROLES[emoji]) # role's object
+     
+                await member.remove_roles(role) # removin' role
+                print('[SUCCESS] Role {1.name} has been remove for user {0.display_name}'.format(member, role))
+     
+            except KeyError as e:
+                print('[ERROR] KeyError, no role found for ' + emoji)
+            except Exception as e:
+                print(repr(e))
  
 # RUN
 import os
