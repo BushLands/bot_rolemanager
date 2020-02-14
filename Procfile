@@ -1,1 +1,1 @@
-worker: python bot_rolemanager.py
+discordbot: python bot_rolemanager.py
